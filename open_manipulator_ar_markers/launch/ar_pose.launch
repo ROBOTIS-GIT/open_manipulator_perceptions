@@ -1,0 +1,37 @@
+<launch>
+  <arg name="use_gazebo"	   default="true" />
+
+  <group if="$(arg use_gazebo)">
+    <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
+      <arg name="marker_size" value="5.0" />
+      <arg name="max_new_marker_error" value="0.08" />
+      <arg name="max_track_error" value="0.2" />
+      <arg name="cam_image_topic" value="/camera/rgb/image_raw" />
+      <arg name="cam_info_topic" value="/camera/rgb/camera_info" />
+      <arg name="output_frame" value="/base_footprint" />
+    </include>
+  </group>
+
+  <group unless="$(arg use_gazebo)">
+    <node pkg="tf" type="static_transform_publisher" name="camera_rgb_optical_frame_to_cam" 
+      args="0 0 0 0 0 0 camera_rgb_optical_frame camera 10" />
+
+    <!-- Camera Image Transport to raw--> I
+    <node pkg="image_transport" type="republish" name="republish" args="compressed in:=/raspicam_node/image raw out:=raspicam_node/image" />
+
+    <!-- Single image rectification and color processing -->
+    <node pkg="image_proc" type="image_proc" name="image_proc" args="image_raw:=image _approximate_s=true _queue_size:=20" launch-prefix="raspicam_node" />
+      <!-- ROS_NAMESPACE=raspicam_node rosrun image_proc image_proc image_raw:=image _approximate_s=true _queue_size:=20 -->
+      
+    <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
+      <arg name="marker_size" value="4.5" />
+      <arg name="max_new_marker_error" value="0.08" />
+      <arg name="max_track_error" value="0.2" />
+      <arg name="cam_image_topic" value="/raspicam_node/image" />
+      <arg name="cam_info_topic" value="/raspicam_node/camera_info" />
+      <arg name="output_frame" value="/base_footprint" />
+    </include>
+  </group>
+</launch>
+
+
