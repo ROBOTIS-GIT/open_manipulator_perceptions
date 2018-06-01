@@ -1,5 +1,5 @@
 ################################################################################
-# CMake
+# Set minimum required version of cmake, project name and compile options
 ################################################################################
 cmake_minimum_required(VERSION 2.8.3)
 project(open_manipulator_ar_markers)
@@ -7,7 +7,7 @@ project(open_manipulator_ar_markers)
 add_compile_options(-std=c++11)
 
 ################################################################################
-# Packages
+# Find catkin packages and libraries for catkin and system dependencies
 ################################################################################
 find_package(catkin REQUIRED COMPONENTS
   ar_track_alvar
@@ -15,6 +15,10 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   image_proc
 )
+
+################################################################################
+# Setup for python modules and scripts
+################################################################################
 
 ################################################################################
 # Declare ROS messages, services and actions
@@ -25,7 +29,7 @@ find_package(catkin REQUIRED COMPONENTS
 ################################################################################
 
 ################################################################################
-# Catkin specific configuration
+# Declare catkin specific configuration to be passed to dependent projects
 ################################################################################
 catkin_package(
   CATKIN_DEPENDS ar_track_alvar ar_track_alvar_msgs image_transport image_proc
@@ -41,7 +45,6 @@ include_directories(
 ################################################################################
 # Install
 ################################################################################
-
 install(DIRECTORY launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
