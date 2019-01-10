@@ -8,7 +8,4 @@
     <arg name="rgb_camera_info_url"   value="$(arg rgb_camera_info_url)" />
     <arg name="depth_camera_info_url" value="$(arg depth_camera_info_url)" />
   </include>
-
-  <node pkg="rviz" type="rviz" name="rviz" required="true"
-      args="-d $(find open_manipulator_ar_markers)/rviz/ar_marker.rviz"/>
 </launch>
