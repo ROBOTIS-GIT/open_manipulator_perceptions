@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>open_manipulator_camera</name>
+  <version>0.1.1</version>
+  <description>
+    This packages includes some camera launch files
+  </description>
+  <license>Apache 2.0</license>
+  <author email="yhna@robotis.com">Yong-Ho Na</author>
+  <author email="thlim@robotis.com">Darby Lim</author>
+  <maintainer email="pyo@robotis.com">Pyo</maintainer>
+  <url type="bugtracker">https://github.com/ROBOTIS-GIT/open_manipulator_perceptions/issues</url>
+  <url type="repository">https://github.com/ROBOTIS-GIT/open_manipulator_perceptions</url>
+  <url type="website">http://emanual.robotis.com/docs/en/platform/openmanipulator</url>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>image_transport</depend>
+  <depend>image_proc</depend>
+</package>
