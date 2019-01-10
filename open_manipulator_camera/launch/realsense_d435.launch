@@ -1,0 +1,9 @@
+<launch>
+  <arg name="namespace"             default="camera"/>
+  <arg name="enable_pointcloud"     default="false" />
+
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+    <arg name="camera"                value="$(arg namespace)"/>
+    <arg name="enable_pointcloud"   value="$(arg enable_pointcloud)" />
+  </include>
+</launch>
