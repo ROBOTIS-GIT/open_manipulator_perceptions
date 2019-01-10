@@ -1,37 +1,53 @@
 <launch>
   <arg name="use_gazebo"	   default="true" />
-  <arg name="use_robot_name" default="om_with_tb3"/>
-  <arg name="frame_id"       default="base_footprint"/>
+  <arg name="use_robot_name" default="open_manipulator"/>
+  <arg name="use_state_publisher" default="true"/>
+  <arg name="marker_frame_id"     default="world"/>
+  <arg name="camera_namespace" default="camera"/>
 
   <group if="$(arg use_gazebo)">
     <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
       <arg name="marker_size" value="5.0" />
       <arg name="max_new_marker_error" value="0.08" />
       <arg name="max_track_error" value="0.2" />
-      <arg name="cam_image_topic" value="camera/rgb/image_raw" />
-      <arg name="cam_info_topic" value="camera/rgb/camera_info" />
-      <arg name="output_frame" value="$(arg use_robot_name)/$(arg frame_id)" />
+      <arg name="cam_image_topic" value="$(arg camera_namespace)/rgb/image_raw" />
+      <arg name="cam_info_topic" value="$(arg camera_namespace)/rgb/camera_info" />
+      <arg name="output_frame" value="$(arg marker_frame_id)" />
     </include>
   </group>
 
   <group unless="$(arg use_gazebo)">
-    <node pkg="tf" type="static_transform_publisher" name="camera_rgb_optical_frame_to_cam"
-      args="0 0 0 0 0 0 $(arg use_robot_name)/camera_rgb_optical_frame $(arg use_robot_name)/camera 10" />
+    <group if="$(arg use_state_publisher)">
+      <param name="robot_description"
+            command="$(find xacro)/xacro --inorder '$(find open_manipulator_description)/urdf/open_manipulator.urdf.xacro'"/>
 
-    <!-- Camera Image Transport to raw--> I
-    <node pkg="image_transport" type="republish" name="republish" args="compressed in:=$(arg use_robot_name)/raspicam_node/image raw out:=$(arg use_robot_name)raspicam_node/image" />
+      <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
+        <rosparam param="source_list" subst_value="true">["$(arg use_robot_name)/joint_states"]</rosparam>
+      </node>
+
+      <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+    </group>
+
+    <!-- <node pkg="tf" type="static_transform_publisher" name="camera_rgb_optical_frame_to_camera"
+      args="0 0 0 0 0 0 $(arg use_robot_name)/camera_rgb_optical_frame $(arg use_robot_name)/camera 10" /> -->
+
+    <node pkg="tf" type="static_transform_publisher" name="world_to_camera"
+      args="0 0 0 0 0 0 world camera_link 10" />
+
+    <!-- Camera Image Transport to raw--> 
+    <!-- <node pkg="image_transport" type="republish" name="republish" args="compressed in:=$(arg use_robot_name)/raspicam_node/image raw out:=$(arg use_robot_name)raspicam_node/image" /> -->
 
     <!-- Single image rectification and color processing -->
-    <node pkg="image_proc" type="image_proc" name="image_proc" args="image_raw:=image _approximate_s=true _queue_size:=20" launch-prefix="$(arg use_robot_name)/raspicam_node" />
-      <!-- ROS_NAMESPACE=raspicam_node rosrun image_proc image_proc image_raw:=image _approximate_s=true _queue_size:=20 -->
+    <!-- <node pkg="image_proc" type="image_proc" name="image_proc" args="image_raw:=image _approximate_s=true _queue_size:=20" launch-prefix="$(arg use_robot_name)/raspicam_node" /> -->
+    <!-- ROS_NAMESPACE=raspicam_node rosrun image_proc image_proc image_raw:=image _approximate_s=true _queue_size:=20 -->
 
     <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
       <arg name="marker_size" value="4.5" />
       <arg name="max_new_marker_error" value="0.08" />
       <arg name="max_track_error" value="0.2" />
-      <arg name="cam_image_topic" value="raspicam_node/image" />
-      <arg name="cam_info_topic" value="raspicam_node/camera_info" />
-      <arg name="output_frame" value="$(arg use_robot_name)/$(arg frame_id)" />
+      <arg name="cam_image_topic" value="$(arg camera_namespace)/rgb/image_raw" />
+      <arg name="cam_info_topic" value="$(arg camera_namespace)/rgb/camera_info" />
+      <arg name="output_frame" value="$(arg marker_frame_id)" />
     </include>
   </group>
 </launch>
