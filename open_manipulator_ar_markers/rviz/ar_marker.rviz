@@ -3,8 +3,7 @@ Panels:
     Help Height: 0
     Name: Displays
     Property Tree Widget:
-      Expanded:
-        - /TF1
+      Expanded: ~
       Splitter Ratio: 0.5
     Tree Height: 293
   - Class: rviz/Selection
@@ -25,7 +24,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: Camera
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -52,34 +51,24 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        camera_color_frame:
+          Value: true
+        camera_color_optical_frame:
+          Value: true
         camera_depth_frame:
           Value: false
         camera_depth_optical_frame:
           Value: false
+        camera_infra1_frame:
+          Value: true
+        camera_infra1_optical_frame:
+          Value: true
+        camera_infra2_frame:
+          Value: true
+        camera_infra2_optical_frame:
+          Value: true
         camera_link:
           Value: false
-        camera_rgb_frame:
-          Value: false
-        camera_rgb_optical_frame:
-          Value: false
-        end_effector_link:
-          Value: true
-        gripper_link:
-          Value: false
-        gripper_link_sub:
-          Value: false
-        link1:
-          Value: false
-        link2:
-          Value: false
-        link3:
-          Value: false
-        link4:
-          Value: false
-        link5:
-          Value: false
-        world:
-          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
@@ -87,24 +76,18 @@ Visualization Manager:
       Show Names: true
       Tree:
         camera_link:
+          camera_color_frame:
+            camera_color_optical_frame:
+              {}
           camera_depth_frame:
             camera_depth_optical_frame:
               {}
-          camera_rgb_frame:
-            camera_rgb_optical_frame:
+          camera_infra1_frame:
+            camera_infra1_optical_frame:
               {}
-        world:
-          link1:
-            link2:
-              link3:
-                link4:
-                  link5:
-                    end_effector_link:
-                      {}
-                    gripper_link:
-                      {}
-                    gripper_link_sub:
-                      {}
+          camera_infra2_frame:
+            camera_infra2_optical_frame:
+              {}
       Update Interval: 0
       Value: true
     - Class: rviz/Camera
