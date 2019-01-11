@@ -13,5 +13,6 @@
   <url type="website">http://emanual.robotis.com/docs/en/platform/openmanipulator</url>
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>open_manipulator_ar_markers</exec_depend>
+  <exec_depend>open_manipulator_camera</exec_depend>
   <export><metapackage/></export>
 </package>
