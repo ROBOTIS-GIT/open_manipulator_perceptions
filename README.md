@@ -43,7 +43,19 @@ $ git clone https://github.com/intel-ros/realsense.git
 $ roslaunch realsense2_camera rs_camera.launch
 ```
 
-# ZED
+# Raspberry Pi CameraV2
+
+[repo]
+```
+$ git clone https://github.com/ROBOTIS-GIT/open_manipulator_perceptions.git
+```
+
+[launch - Raspberry Pi]
+```
+$ roslaunch open_manipulator_camera rpicamera.launch
+```
+
+# ZED (Not supported in ubuntu 16.04)
 [install]
 
 http://wiki.ros.org/zed-ros-wrapper
@@ -69,6 +81,31 @@ $ roslaunch zed_wrapper zed.launch
 [error]
 glbc2.7 is not supported in xenial
 
+# AR marker
+
+[repo]
+```
+$ git clone https://github.com/ROBOTIS-GIT/open_manipulator_perceptions.git
+```
+
+[launch - astra pro]
+```
+$ roslaunch open_manipulator_ar_markers ar_pose.launch use_gazebo:=false camera_model:=astra_pro
+```
+
+[launch - realsense d435]
+```
+$ roslaunch open_manipulator_ar_markers ar_pose.launch use_gazebo:=false camera_model:=realsense_d435
+```
+
+[launch - Raspberry Pi CameraV2]
+```
+[Raspberry Pi]
+$ roslaunch open_manipulator_camera rpicamera.launch
+
+[Remote PC]
+$ roslaunch open_manipulator_ar_markers ar_pose.launch use_gazebo:=false camera_model:=raspicam
+```
 
 
 
