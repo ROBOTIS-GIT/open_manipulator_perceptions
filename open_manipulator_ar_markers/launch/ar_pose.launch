@@ -5,7 +5,7 @@
   <arg name="open_rviz"           default="true"/>
   <arg name="marker_frame_id"     default="world"/>
 
-  <arg name="camera_model" default="astra_pro" doc="model type [astra_pro, realsense_d435]"/>
+  <arg name="camera_model" default="astra_pro" doc="model type [astra_pro, realsense_d435, raspicam]"/>
   <arg name="camera_namespace" default="camera"/>
   <arg name="rgb_camera_info_url"   default="file://${ROS_HOME}/camera_info/rgb_16111910172.yaml" />
   <arg name="depth_camera_info_url" default="" />
@@ -68,6 +68,18 @@
         <arg name="output_frame" value="$(arg marker_frame_id)" />
       </include>
     </group> 
+
+    <group if="$(eval camera_model == 'raspicam')">
+      <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
+        <arg name="marker_size" value="4.5" />
+        <arg name="max_new_marker_error" value="0.08" />
+        <arg name="max_track_error" value="0.2" />
+        <arg name="cam_image_topic" value="/raspicam_node/image" />
+        <arg name="cam_info_topic" value="/raspicam_node/camera_info" />
+        <arg name="output_frame" value="$(arg marker_frame_id)" />
+      </include>
+    </group>
+
   </group>
 
   <group if="$(arg open_rviz)">
