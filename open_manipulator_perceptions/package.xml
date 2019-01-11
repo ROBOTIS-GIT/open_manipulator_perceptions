@@ -10,6 +10,7 @@
   <author email="hjkim@robotis.com">Hye-Jong KIM</author>
   <author email="jhshim@robotis.com">Ryan Shim</author>
   <author email="yhna@robotis.com">Yong-Ho Na</author>
+  <maintainer email="pyo@robotis.com">Pyo</maintainer>
   <url type="bugtracker">https://github.com/ROBOTIS-GIT/open_manipulator_perceptions/issues</url>
   <url type="repository">https://github.com/ROBOTIS-GIT/open_manipulator_perceptions</url>
   <url type="website">http://emanual.robotis.com/docs/en/platform/openmanipulator</url>
