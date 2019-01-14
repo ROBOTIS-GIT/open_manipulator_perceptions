@@ -7,7 +7,7 @@
 
   <arg name="camera_model" default="astra_pro" doc="model type [astra_pro, realsense_d435, raspicam]"/>
   <arg name="camera_namespace" default="camera"/>
-  <arg name="rgb_camera_info_url"   default="file://${ROS_HOME}/camera_info/rgb_16111910172.yaml" />
+  <arg name="rgb_camera_info_url"   default="package://open_manipulator_camera/camera_info/$(arg camera_model).yaml" />
   <arg name="depth_camera_info_url" default="" />
 
   <group if="$(arg use_gazebo)">

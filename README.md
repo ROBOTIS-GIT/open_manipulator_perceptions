@@ -34,6 +34,12 @@ I have installed 5.11.1.0
 
 ```
 $ sudo apt-get install ros-kinetic-rgbd-launch
+
+[Ubuntu 16 LTS]
+$ sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo xenial main" -u
+[Ubuntu 18 LTS]
+$ sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo bionic main" -u
+
 $ sudo apt-get install librealsense2-dev
 $ git clone https://github.com/intel-ros/realsense.git
 ```
