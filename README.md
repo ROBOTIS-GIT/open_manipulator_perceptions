@@ -53,12 +53,12 @@ $ roslaunch realsense2_camera rs_camera.launch
 
 [repo]
 ```
-$ git clone https://github.com/ROBOTIS-GIT/open_manipulator_perceptions.git
+$ git clone https://github.com/UbiquityRobotics/raspicam_node.git
 ```
 
 [launch - Raspberry Pi]
 ```
-$ roslaunch open_manipulator_camera rpicamera.launch
+$ roslaunch raspicam_node camerav2_1280x960.launch
 ```
 
 # ZED (Not supported in ubuntu 16.04)
