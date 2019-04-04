@@ -4,6 +4,7 @@
   <arg name="use_state_publisher" default="true"/>
   <arg name="open_rviz"           default="true"/>
   <arg name="marker_frame_id"     default="world"/>
+  <arg name="user_marker_size"	  default="5.0"/>
 
   <arg name="camera_model" default="astra_pro" doc="model type [astra_pro, realsense_d435, raspicam]"/>
   <arg name="camera_namespace" default="camera"/>
@@ -21,9 +22,6 @@
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
   </group>
 
-  <node pkg="tf" type="static_transform_publisher" name="base_frame_to_camera_frame"
-    args="0 0 0 0 0 0 $(arg marker_frame_id) camera_link 10" />
-
   <group if="$(arg use_platform)">
     <group if="$(eval camera_model == 'astra_pro')">
       <include file="$(find astra_launch)/launch/astra_pro.launch">
@@ -32,8 +30,11 @@
         <arg name="depth_camera_info_url" value="$(arg depth_camera_info_url)" />
       </include>
 
+      <node pkg="tf" type="static_transform_publisher" name="camera_frame_to_astra_pro_frame"
+        args="0.0 0.0 0.0 0.0 0.0 0.0 world camera_link 10" />
+
       <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
-        <arg name="marker_size" value="4.5" />
+        <arg name="marker_size" value="$(arg user_marker_size)" />
         <arg name="max_new_marker_error" value="0.08" />
         <arg name="max_track_error" value="0.2" />
         <arg name="cam_image_topic" value="$(arg camera_namespace)/rgb/image_raw" />
@@ -48,8 +49,11 @@
         <arg name="enable_pointcloud"     value="false" />
       </include>
 
+    <node pkg="tf" type="static_transform_publisher" name="camera_frame_to_realsense_frame"
+      args="0.0 0.0 0.0 0.0 0.0 0.0 link5 camera_link 10" />
+
       <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
-        <arg name="marker_size" value="4.5" />
+        <arg name="marker_size" value="$(arg user_marker_size)" />
         <arg name="max_new_marker_error" value="0.08" />
         <arg name="max_track_error" value="0.2" />
         <arg name="cam_image_topic" value="$(arg camera_namespace)/color/image_raw" />
@@ -63,10 +67,10 @@
         args="compressed in:=raspicam_node/image raw out:=raspicam_node/image_raw"/>
 
     <node pkg="tf" type="static_transform_publisher" name="camera_frame_to_raspicam_frame"
-      args="0.068 0 0.055 -1.57 0 -1.57 link5 raspicam 10" />
+      args="0.070 0 0.052  -1.57 0 -1.57 link5 raspicam 10" />
 
       <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
-        <arg name="marker_size" value="4.5" />
+        <arg name="marker_size" value="$(arg user_marker_size)" />
         <arg name="max_new_marker_error" value="0.08" />
         <arg name="max_track_error" value="0.2" />
         <arg name="cam_image_topic" value="/raspicam_node/image_raw" />
@@ -78,7 +82,7 @@
 
   <group unless="$(arg use_platform)">
       <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
-      <arg name="marker_size" value="5.0" />
+      <arg name="marker_size" value="$(arg user_marker_size)" />
       <arg name="max_new_marker_error" value="0.08" />
       <arg name="max_track_error" value="0.2" />
       <arg name="cam_image_topic" value="$(arg camera_namespace)/rgb/image_raw" />
@@ -86,7 +90,6 @@
       <arg name="output_frame" value="$(arg marker_frame_id)" />
     </include>
   </group>
-
 
   <group if="$(arg open_rviz)">
     <node pkg="rviz" type="rviz" name="rviz" required="true"
