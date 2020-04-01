@@ -13,13 +13,13 @@
 
   <group if="$(arg use_state_publisher)">
     <param name="robot_description"
-          command="$(find xacro)/xacro --inorder '$(find open_manipulator_description)/urdf/open_manipulator.urdf.xacro'"/>
+          command="$(find xacro)/xacro --inorder '$(find open_manipulator_description)/urdf/open_manipulator_robot.urdf.xacro'"/>
 
     <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
-      <rosparam param="source_list" subst_value="true">["$(arg use_robot_name)/joint_states"]</rosparam>
+      <rosparam param="source_list" subst_value="true">["joint_states"]</rosparam>
     </node>
 
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
   </group>
 
   <group if="$(arg use_platform)">
@@ -96,5 +96,3 @@
       args="-d $(find open_manipulator_ar_markers)/rviz/ar_marker.rviz"/>
   </group>
 </launch>
-
-
