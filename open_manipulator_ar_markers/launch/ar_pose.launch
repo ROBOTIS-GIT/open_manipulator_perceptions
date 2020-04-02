@@ -1,6 +1,5 @@
 <launch>
   <arg name="use_platform"	   default="true" />
-  <arg name="use_robot_name" default="open_manipulator"/>
   <arg name="use_state_publisher" default="true"/>
   <arg name="open_rviz"           default="true"/>
   <arg name="marker_frame_id"     default="world"/>
@@ -50,7 +49,7 @@
       </include>
 
     <node pkg="tf" type="static_transform_publisher" name="camera_frame_to_realsense_frame"
-      args="0.0 0.0 0.0 0.0 0.0 0.0 link5 camera_link 10" />
+      args="0.070 0 0.052 0 0 0 link5 camera_link 10" />
 
       <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
         <arg name="marker_size" value="$(arg user_marker_size)" />
@@ -67,7 +66,7 @@
         args="compressed in:=raspicam_node/image raw out:=raspicam_node/image_raw"/>
 
     <node pkg="tf" type="static_transform_publisher" name="camera_frame_to_raspicam_frame"
-      args="0.070 0 0.052  -1.57 0 -1.57 link5 raspicam 10" />
+      args="0.070 0 0.052 -1.57 0 -1.57 link5 raspicam 10" />
 
       <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
         <arg name="marker_size" value="$(arg user_marker_size)" />
