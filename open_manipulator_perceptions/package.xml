@@ -18,5 +18,6 @@
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>open_manipulator_ar_markers</exec_depend>
   <exec_depend>open_manipulator_camera</exec_depend>
+  <exec_depend>open_manipulator_pick_and_place</exec_depend>
   <export><metapackage/></export>
 </package>
